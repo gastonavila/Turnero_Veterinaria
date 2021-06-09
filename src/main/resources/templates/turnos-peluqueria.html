@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página de practica de Spring Boot + Thymeleaf para el curso de Egg Educación"/>
+    <meta name="author" content="Gaston Avila"/>
+    <title>Pagina de turnos de peluqueria</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav mb-2 mb-md-0 w-100">
+                    <li class="nav-item dropdown">
+                        <a id="dropdown-mascotas" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            TURNOS PELUQUERIA
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-mascotas">
+                            <li><a class="dropdown-item" th:href="@{/turnos-peluqueria}">Mostrar todos</a></li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/turnos-peluqueria/crear}">Crear turno peluqueria</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </nav>
+
+    <div class="container mt-5 main">
+        <h1>Listado de turnos de la peluqueria</h1>
+        <hr class="mb-5"/>
+        <div th:if="${turnos.isEmpty()}">
+            <h5>Todavía no hay turnos cargados. <a th:href="@{/turnos-peluqueria/crear}">Cargar turno.</a></h5>
+        </div>
+        <div th:unless="${turnos.isEmpty()}" class="table-responsive">
+            <table class="table table-hover table-sm table-bordered">
+                <thead class="table-secondary text-center">
+                <tr>
+                    <th class="col-md-4 px-md-2" scope="col">Fecha</th>
+                    <th class="col-md-4 px-md-2" scope="col">Horario</th>
+                    <th class="col-md-4 px-md-2" scope="col">Especialista</th>
+                    <th class="col-md-4 px-md-2" scope="col">Cliente</th>
+                    <th class="col-md-4 px-md-2" scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="TurnoPeluqueria : ${turnos}">
+                        <td class="col-md-3 px-md-2" th:text="${#dates.format(TurnoPeluqueria.fecha, 'dd/MM/yyyy')}"></td>
+                        <td class="col-md-3 px-md-2" th:text="${TurnoPeluqueria.hora}"></td>
+                        <td class="col-md-3 px-md-2" th:text="${TurnoPeluqueria.especialista.nombre}"></td>
+                        <td class="col-md-3 px-md-2" th:text="${TurnoPeluqueria.cliente.nombre}"></td>
+                        <td class="col-md-3 px-md-2 d-flex justify-content-around w-100">
+                            <a class="btn btn-secondary btn-sm" th:href="@{/turnos-peluqueria/editar/__${TurnoPeluqueria.codigo}__}">Editar</a>
+                            <form th:action="@{/turnos-peluqueria/eliminar/__${TurnoPeluqueria.codigo}__}" method="post">
+                                <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+<footer class="footer py-3 bg-dark fixed-bottom">
+    <div class="container d-flex justify-content-center">
+        <span class="text-muted">&copy; Gaston Avila - 2021</span>
+        <a class="text-decoration-none ms-3 footer-link" href="https://www.linkedin.com/in/gastonavilaok/"
+           target="_blank">
+            <i class="bi bi-linkedin"></i>
+        </a>
+    </div>
+</footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous">
+    </script>
+</body>
+</html>
