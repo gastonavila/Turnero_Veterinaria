@@ -1,6 +1,7 @@
 package com.egg.spring.controller;
 
 import com.egg.spring.entity.TurnoGuarderia;
+import com.egg.spring.entity.TurnoPeluqueria;
 import com.egg.spring.service.EspecialistaService;
 import com.egg.spring.service.TurnoPeluqueriaService;
 import com.egg.spring.service.UsuarioService;
@@ -39,7 +40,7 @@ public class TurnoPeluqueriaController {
 	@GetMapping("/crear")
 	public ModelAndView crearTurno(){
 		ModelAndView mav = new ModelAndView("turnos-peluqueria-formulario");
-		mav.addObject("turno", new TurnoGuarderia());
+		mav.addObject("turno", new TurnoPeluqueria());
 		mav.addObject("clientes", usuarioService.buscarTodos());
 		mav.addObject("especialistas", especialistaService.buscarTodos());
 		mav.addObject("horarios", tpService.horarios());

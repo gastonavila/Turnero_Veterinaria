@@ -18,7 +18,7 @@ public class TurnoGuarderia {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String codigo;
 	
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	private Date fecha;
 	
 	private String hora;

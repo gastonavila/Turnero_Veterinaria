@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="TurnoMedico : ${turnos}">
-                        <td class="col-md-3 px-md-2" th:text="${#dates.format(TurnoMedico.fecha, 'dd/MM/yyyy')}"></td>
+                        <td class="col-md-3 px-md-2" th:text="${TurnoMedico.fecha}"></td>
                         <td class="col-md-3 px-md-2" th:text="${TurnoMedico.hora}"></td>
                         <td class="col-md-3 px-md-2" th:text="${TurnoMedico.especialista.nombre}"></td>
                         <td class="col-md-3 px-md-2" th:text="${TurnoMedico.cliente.nombre}"></td>
